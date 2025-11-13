@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElyseeShop Premium - E-commerce Social</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Color Customizer -->
+    <div class="color-customizer">
+        <button class="color-toggle" id="colorToggle">🎨 Thème</button>
+        <div class="color-panel" id="colorPanel">
+            <h3>Thème: Blanc - Vert - Noir</h3>
+            <p style="font-size: 12px; color: #666; margin: 10px 0;">Couleur unique du site</p>
+            <div class="color-inputs">
+                <div class="color-input">
+                    <label>Couleur Primaire</label>
+                    <input type="color" id="primaryColor" value="#10b981" disabled>
+                </div>
+                <div class="color-input">
+                    <label>Couleur Secondaire</label>
+                    <input type="color" id="secondaryColor" value="#ffffff" disabled>
+                </div>
+                <div class="color-input">
+                    <label>Couleur Accent</label>
+                    <input type="color" id="accentColor" value="#000000" disabled>
+                </div>
+            </div>
+            <button class="reset-colors" onclick="resetColors()" disabled>Thème Fixe</button>
+        </div>
+    </div>
+
+    <!-- Navigation Premium -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-section">
+                <div class="logo">
+                    <span class="logo-icon">⚡</span>
+                    <span class="logo-text">ElyseeShop</span>
+                </div>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#" data-page="shop" class="nav-link active">
+                    <span class="icon">🛍️</span> Boutique
+                </a>
+                <a href="#" data-page="shorts" class="nav-link">
+                    <span class="icon">🎬</span> Shorts
+                </a>
+                <a href="#" data-page="posts" class="nav-link">
+                    <span class="icon">📱</span> Posts
+                </a>
+                <a href="#" data-page="games" class="nav-link">
+                    <span class="icon">🎮</span> Jeux
+                </a>
+                <a href="#" data-page="cart" class="nav-link">
+                    <span class="icon">🛒</span> Panier <span class="cart-count">0</span>
+                </a>
+                <a href="#" data-page="chat" class="nav-link">
+                    <span class="icon">💬</span> Chat
+                </a>
+                <a href="#" data-page="messages" class="nav-link">
+                    <span class="icon">✉️</span> Messages
+                </a>
+                <a href="#" data-page="profile" class="nav-link">
+                    <span class="icon">👤</span> Profil
+                </a>
+                <a href="#" id="logoutBtn" onclick="logout()" style="display:none;" class="nav-link">
+                    <span class="icon">🚪</span> Déconnexion
+                </a>
+            </div>
+
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ambient Lights 3D -->
+    <div class="light light-1"></div>
+    <div class="light light-2"></div>
+    <div class="light light-3"></div>
+
+    <!-- Main Container -->
+    <main class="main-container">
+
+        <!-- PAGE SHOP -->
+        <section class="page active" id="page-shop" data-page="shop">
+            <div class="shop-header">
+                <h1>✨ Notre Boutique Premium</h1>
+                <p>Découvrez nos produits exclusifs</p>
+            </div>
+
+            <div class="shop-content">
+                <div class="filters">
+                    <h3>📋 Filtres</h3>
+                    <div class="filter-group">
+                        <input type="checkbox" class="filter-check" value="electronics">
+                        <label>Électronique</label>
+                    </div>
+                    <div class="filter-group">
+                        <input type="checkbox" class="filter-check" value="accessories">
+                        <label>Accessoires</label>
+                    </div>
+                    <div class="filter-group">
+                        <input type="checkbox" class="filter-check" value="fashion">
+                        <label>Mode</label>
+                    </div>
+                </div>
+
+                <div class="products-grid" id="productsGrid"></div>
+            </div>
+        </section>
+
+        <!-- PAGE SHORTS -->
+        <section class="page" id="page-shorts" data-page="shorts">
+            <div class="shorts-container" id="shortsContainer"></div>
+        </section>
+
+        <!-- PAGE POSTS -->
+        <section class="page" id="page-posts" data-page="posts">
+            <div class="posts-header">
+                <h1>📱 Publications</h1>
+                <button class="btn btn-primary" onclick="openPostModal()">+ Créer</button>
+            </div>
+            <div class="posts-container" id="postsContainer"></div>
+        </section>
+
+        <!-- PAGE GAMES -->
+        <section class="page" id="page-games" data-page="games">
+            <div class="games-header">
+                <h1>🎮 Mini-Jeux</h1>
+            </div>
+            <div class="games-grid">
+                <div class="game-card" onclick="showGameModal('flappy')">
+                    <div class="game-icon">🐦</div>
+                    <h3>Flappy Bird</h3>
+                </div>
+                <div class="game-card" onclick="showGameModal('snake')">
+                    <div class="game-icon">🐍</div>
+                    <h3>Snake</h3>
+                </div>
+                <div class="game-card" onclick="showGameModal('memory')">
+                    <div class="game-icon">🧠</div>
+                    <h3>Mémoire</h3>
+                </div>
+                <div class="game-card" onclick="showGameModal('dice')">
+                    <div class="game-icon">🎲</div>
+                    <h3>Dés</h3>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE CART -->
+        <section class="page" id="page-cart" data-page="cart">
+            <div class="cart-header">
+                <h1>🛒 Mon Panier</h1>
+            </div>
+
+            <div class="cart-content">
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-state">
+                        <p>Votre panier est vide</p>
+                        <button class="btn btn-primary" onclick="showPage('shop')">Continuer</button>
+                    </div>
+                </div>
+
+                <div class="cart-summary">
+                    <h2>Résumé</h2>
+                    <div class="summary-row">
+                        <span>Sous-total:</span>
+                        <span id="subtotal">0€</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Livraison:</span>
+                        <span id="shipping">Gratuit</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total:</span>
+                        <span id="total">0€</span>
+                    </div>
+                    <button class="btn btn-primary" onclick="showPage('checkout')" style="width: 100%; margin-top: 1.5rem;">
+                        Payer
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE CHECKOUT -->
+        <section class="page" id="page-checkout" data-page="checkout">
+            <div class="checkout-header">
+                <h1>💳 Commande</h1>
+            </div>
+
+            <div class="checkout-container">
+                <form id="checkoutForm" onsubmit="handleCheckout(event)">
+                    <div class="form-section">
+                        <h2>📍 Livraison</h2>
+                        <div class="form-row">
+                            <input type="text" placeholder="Prénom" required>
+                            <input type="text" placeholder="Nom" required>
+                        </div>
+                        <input type="email" placeholder="Email" required>
+                        <input type="text" placeholder="Adresse" required>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>💳 Paiement</h2>
+                        <input type="text" placeholder="1234 5678 9012 3456" maxlength="19" required>
+                        <div class="form-row">
+                            <input type="text" placeholder="MM/YY" maxlength="5" required>
+                            <input type="text" placeholder="CVC" maxlength="3" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        Confirmer
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- PAGE CHAT -->
+        <section class="page" id="page-chat" data-page="chat">
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h1>💬 Support Client</h1>
+                    <span class="status-online">● En ligne</span>
+                </div>
+
+                <div class="chat-messages" id="chatMessages"></div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Écrivez votre message..." class="chat-input">
+                    <button class="btn-send" onclick="sendMessage()">Envoyer</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE MESSAGES (Messagerie privée) -->
+        <section class="page" id="page-messages" data-page="messages">
+            <div class="messages-container">
+                <div class="messages-sidebar">
+                    <h2>💬 Conversations</h2>
+                    <div class="conversations-list" id="conversationsList"></div>
+                </div>
+                <div class="messages-content">
+                    <div class="message-thread" id="messageThread">
+                        <div style="text-align: center; color: #cbd5e1; padding: 3rem;">
+                            Sélectionnez une conversation
+                        </div>
+                    </div>
+                    <div class="message-input-area">
+                        <input type="text" id="messageInput" placeholder="Écrivez un message..." class="message-input">
+                        <button class="btn-send" onclick="sendPrivateMessage()">Envoyer</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE PROFILE (Profil utilisateur) -->
+        <section class="page" id="page-profile" data-page="profile">
+            <div class="profile-container">
+                <div class="profile-header">
+                    <div class="profile-avatar-container">
+                        <img id="profileLogoImg" src="" alt="Logo" class="profile-logo" style="display:none;">
+                        <div class="profile-avatar" id="profileAvatar">👤</div>
+                    </div>
+                    <div class="profile-info">
+                        <h1 id="profileName">Non connecté</h1>
+                        <p id="profileEmail">Veuillez vous connecter</p>
+                        <button class="btn btn-primary" onclick="showPage('login')" style="margin-top: 1rem;">Connexion</button>
+                    </div>
+                </div>
+
+                <div id="userProfileContent" style="display:none;">
+                    <!-- Section Upload Media -->
+                    <div class="profile-section">
+                        <h2>📸 Vos Médias</h2>
+                        <div class="media-upload-area">
+                            <div class="upload-box">
+                                <label for="logoUpload" class="upload-label">
+                                    <span class="upload-icon">🏷️</span>
+                                    <span>Votre Logo</span>
+                                </label>
+                                <input type="file" id="logoUpload" accept="image/*" style="display:none;">
+                                <div id="logoPreview" class="media-preview"></div>
+                            </div>
+
+                            <div class="upload-box">
+                                <label for="photoUpload" class="upload-label">
+                                    <span class="upload-icon">📸</span>
+                                    <span>Photos</span>
+                                </label>
+                                <input type="file" id="photoUpload" accept="image/*" multiple style="display:none;">
+                                <div id="photosGrid" class="photos-grid"></div>
+                            </div>
+
+                            <div class="upload-box">
+                                <label for="videoUpload" class="upload-label">
+                                    <span class="upload-icon">🎥</span>
+                                    <span>Vidéos</span>
+                                </label>
+                                <input type="file" id="videoUpload" accept="video/*" multiple style="display:none;">
+                                <div id="videosGrid" class="videos-grid"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Statistiques -->
+                    <div class="profile-section">
+                        <h2>📊 Statistiques</h2>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-label">Commandes</span>
+                                <span class="stat-value" id="orderCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Amis</span>
+                                <span class="stat-value" id="friendCount">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Posts</span>
+                                <span class="stat-value" id="postCount">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section Amis -->
+                    <div class="profile-section">
+                        <h2>👥 Mes Amis</h2>
+                        <div class="friends-list" id="friendsList"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE LOGIN (Connexion) -->
+        <section class="page" id="page-login" data-page="login">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Connexion</h2>
+                    <form onsubmit="handleLogin(event)">
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                        <input type="password" id="loginPassword" placeholder="Mot de passe" required>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Se connecter</button>
+                    </form>
+                    <p style="text-align: center; color: #cbd5e1; margin-top: 1.5rem;">
+                        Pas de compte? <a href="#" onclick="showPage('register')" style="color: var(--primary); cursor: pointer;">Créer un compte</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE REGISTER (Inscription) -->
+        <section class="page" id="page-register" data-page="register">
+            <div class="auth-container">
+                <div class="auth-card">
+                    <h2>Créer un compte</h2>
+                    <form onsubmit="handleRegister(event)">
+                        <input type="text" id="registerName" placeholder="Nom complet" required>
+                        <input type="email" id="registerEmail" placeholder="Email" required>
+                        <input type="password" id="registerPassword" placeholder="Mot de passe" required>
+                        <input type="password" id="registerPasswordConfirm" placeholder="Confirmer le mot de passe" required>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">S'inscrire</button>
+                    </form>
+                    <p style="text-align: center; color: #cbd5e1; margin-top: 1.5rem;">
+                        Déjà inscrit? <a href="#" onclick="showPage('login')" style="color: var(--primary); cursor: pointer;">Se connecter</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modals -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-icon">✅</div>
+            <h2>Succès!</h2>
+            <p>Merci pour votre achat</p>
+            <button class="btn btn-primary" onclick="closeModal()">OK</button>
+        </div>
+    </div>
+
+    <div class="modal" id="gameModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeGameModal()">×</button>
+            <div id="gameContent"></div>
+        </div>
+    </div>
+
+    <div class="modal" id="postModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closePostModal()">×</button>
+            <h2>Créer un post</h2>
+            <textarea id="postText" placeholder="Qu'est-ce que vous pensez?" class="post-textarea"></textarea>
+            <button class="btn btn-primary" onclick="createPost()">Publier</button>
+        </div>
+    </div>
+
+    <!-- Notifications -->
+    <div class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
